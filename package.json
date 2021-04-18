@@ -1,0 +1,10 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Diogo Dourado <dcdourado@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "crawl": "node index.js"
+  }
+}

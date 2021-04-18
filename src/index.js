@@ -1,6 +1,6 @@
 import Logger from "./logger.js";
 
-import COMMANDS from "./commands.js";
+import Commands from "./commands/index.js";
 
 const args = process.argv;
 
@@ -11,8 +11,9 @@ args.shift();
 Logger.log(args);
 args.forEach((arg) => {
   switch (arg) {
-    case COMMANDS.CURSOS:
-      Logger.info("SUCCESS!")
+    case "cursos":
+      Logger.info("Cursos command called");
+      Commands.cursos();
       break;
     default:
       Logger.warn(`Unknown argument: ${arg}`);

@@ -5,6 +5,6 @@
   "author": "Diogo Dourado <dcdourado@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "crawl": "node index.js"
+    "crawl": "node src/index.js"
   }
 }

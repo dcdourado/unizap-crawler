@@ -1,5 +1,5 @@
 const COMMANDS = {
-  CURSOS: "CRAWL_CURSOS",
+  CURSOS: "cursos",
 };
 
 export default COMMANDS;

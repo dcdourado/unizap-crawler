@@ -6,5 +6,6 @@
   "license": "MIT",
   "scripts": {
     "crawl": "node src/index.js"
-  }
+  },
+  "type": "module"
 }

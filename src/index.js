@@ -1,5 +1,8 @@
-import Logger from "./logger.js";
+import dotenv from "dotenv";
 
+dotenv.config();
+
+import Logger from "./logger.js";
 import Commands from "./commands/index.js";
 
 const args = process.argv;
@@ -8,14 +11,16 @@ const args = process.argv;
 args.shift();
 args.shift();
 
-Logger.log(args);
-args.forEach((arg) => {
-  switch (arg) {
+(async () => {
+  Logger.log(args);
+  switch (args[0]) {
     case "cursos":
       Logger.info("Cursos command called");
-      Commands.cursos();
+      await Commands.cursos();
       break;
     default:
       Logger.warn(`Unknown argument: ${arg}`);
   }
-});
+
+  Logger.info("Job executed with success.")
+})();

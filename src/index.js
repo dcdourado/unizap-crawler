@@ -12,10 +12,8 @@ args.shift();
 args.shift();
 
 (async () => {
-  Logger.log(args);
   switch (args[0]) {
     case "cursos":
-      Logger.info("Cursos command called");
       await Commands.cursos();
       break;
     default:

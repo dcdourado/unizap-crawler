@@ -13,7 +13,7 @@ args.shift();
 
 (async () => {
   switch (args[0]) {
-    case "cursos":
+    case "courses":
       await Commands.courses();
       break;
     default:

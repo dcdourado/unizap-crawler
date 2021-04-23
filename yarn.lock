@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@prisma/engines@2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d":
+  version "2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d.tgz#aafed60c9506bc766e49ea60b9f8ce7da2385bc6"
+  integrity sha512-L57tvSoom2GDWDqik4wrAUBvLTAv5MTm2OOzNMBKsv0w5cX7ONoZ8KnGQN+csmdJpQVBs93dIvIBm72OO+l/9Q==
+
 "@types/node@*":
   version "14.14.41"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
@@ -252,6 +257,13 @@ pkg-dir@^4.2.0:
   integrity sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
   dependencies:
     find-up "^4.0.0"
+
+prisma@^2.21.2:
+  version "2.21.2"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-2.21.2.tgz#a73b4cbe92a884aa98b317684d6741871b5e94a5"
+  integrity sha512-Ux9ovDIUHsMNLGLtuo6BBKCuuBVLpZmhM2LXF+VBUQvsbmsVfp3u5CRyHGEqaZqMibYQJISy7YZYF/RgozHKkQ==
+  dependencies:
+    "@prisma/engines" "2.21.0-36.e421996c87d5f3c8f7eeadd502d4ad402c89464d"
 
 progress@^2.0.1:
   version "2.0.3"

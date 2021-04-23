@@ -1,7 +1,7 @@
-import cursos from "./cursos.js";
+import courses from "./courses.js";
 
 const Commands = {
-  cursos,
+  courses,
 };
 
 export default Commands;

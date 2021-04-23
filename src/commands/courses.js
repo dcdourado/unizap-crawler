@@ -28,7 +28,8 @@ const command = async () => {
 
     Logger.info("Clicked sign in button");
 
-    await page.waitForNavigation({ waitUntil: "load" });
+    await page.waitForNavigation({ waitUntil: "domcontentloaded" });
+    page.wa;
 
     Logger.info("Logged in successfully");
 
@@ -51,33 +52,31 @@ const command = async () => {
     await page.$eval("[name='busca:checkCurso']", (el) => el.click());
 
     // const optionsContainer = await page.$("[name='busca:curso']", (el) => el.children);
-    const coursesValues = await page.evaluate(() => {
+    const courses = await page.evaluate(() => {
       const options = Array.from(
         document.querySelectorAll("[name='busca:curso'] > option")
       );
 
-      return options.map((opt) => opt.value);
+      return options.map((opt) => {
+        const values = opt.textContent.split("-");
+        const courseAndGroup = values[0].split("/");
+
+        const id = +opt.value;
+        const name = courseAndGroup[0].trim();
+        const group = courseAndGroup[1].trim();
+        const city = values[1].trim();
+        const type = values[2].trim();
+
+        return { id, name, group, city, type };
+      });
     });
-    coursesValues.shift(); // Ignore value 0 (select option)
+    courses.shift(); // Ignore value 0 (select option)
 
-    // Retrieving subjects
-    const subjectPromises = coursesValues.map(async (cv) => {
-      await page.$eval("[name='busca:curso']", (el, cv) => (el.value = cv), [
-        cv,
-      ]);
-
-      await page.$eval("[value='Buscar']", (el) => el.click());
-
-      // await page.$eval(".listagem > tbody > tr > td > a", (el) => el.click());
-      await page.screenshot({ path: `${cv}.png` });
-    });
-
-    await Promise.all(subjectPromises);
+    Logger.log(courses);
   } catch (e) {
     Logger.error(e);
   }
 
-  await page.screenshot({ path: "result.png" });
   await browser.close();
 };
 

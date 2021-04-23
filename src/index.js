@@ -14,7 +14,7 @@ args.shift();
 (async () => {
   switch (args[0]) {
     case "cursos":
-      await Commands.cursos();
+      await Commands.subjects(args[1]);
       break;
     default:
       Logger.warn(`Unknown argument: ${arg}`);

@@ -1,37 +1,14 @@
 import puppeteer from "puppeteer";
 
 import Logger from "../logger.js";
+import LoginHelper from './helpers/login.js';
 
 const command = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   try {
-    Logger.info(`Accessing ${process.env.SIGAA_LOGIN_URL}...`);
-    await page.goto(process.env.SIGAA_LOGIN_URL);
-    Logger.info("Website accessed successfully");
-
-    // Login
-    Logger.info("Logging in...");
-
-    await page.$eval(
-      "[name='user.login']",
-      (el, login) => (el.value = `${login}`),
-      [process.env.SIGAA_LOGIN_CPF]
-    );
-    await page.$eval(
-      "[name='user.senha']",
-      (el, password) => (el.value = `${password}`),
-      [process.env.SIGAA_LOGIN_PASSWORD]
-    );
-    await page.$eval("[value='Entrar']", (el) => el.click());
-
-    Logger.info("Clicked sign in button");
-
-    await page.waitForNavigation({ waitUntil: "domcontentloaded" });
-    page.wa;
-
-    Logger.info("Logged in successfully");
+    await LoginHelper(page);
 
     // Access courses section
     Logger.info("Accessing courses section...");
@@ -62,10 +39,10 @@ const command = async () => {
         const courseAndGroup = values[0].split("/");
 
         const id = +opt.value;
-        const name = courseAndGroup[0].trim();
-        const group = courseAndGroup[1].trim();
-        const city = values[1].trim();
-        const type = values[2].trim();
+        const name = (courseAndGroup[0] || '').trim();
+        const group = (courseAndGroup[1] || '').trim();
+        const city = (values[1] || '').trim();
+        const type = (values[2] || '').trim();
 
         return { id, name, group, city, type };
       });

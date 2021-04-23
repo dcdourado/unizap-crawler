@@ -19,6 +19,4 @@ args.shift();
     default:
       Logger.warn(`Unknown argument: ${arg}`);
   }
-
-  Logger.info("Job executed with success.")
 })();

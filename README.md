@@ -7,7 +7,7 @@ UniZap tem o intuito de oferecer um canal de fácil acesso à estudantes para se
 
 O projeto é composto por três frentes:
 
-- Crawler
+- [Crawler](https://github.com/dcdourado/unizap-crawler)
 - Bot
   - WhatsApp
   - Telegram (pendente)
@@ -17,7 +17,9 @@ O projeto é composto por três frentes:
 O crawler tem por objetivo buscar todos cursos e discplinas disponíveis da Universidade, para conseguirmos ter as informações necessárias para gerenciamento dos grupos.
 
 ## Contribuições
-Para contribuir com o projeto crie uma *issue*, discutimos a solução proposta e então cria-se *fork*. Sinta-se convidado a ajudar.
+Para contribuir com o projeto crie uma *issue*, discutimos a solução proposta e então cria-se *fork*. Este projeto utiliza segue [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) como guia de estilo de commits (e branches).
+
+Sinta-se convidado a ajudar.
 
 ## Licença
 **MIT**

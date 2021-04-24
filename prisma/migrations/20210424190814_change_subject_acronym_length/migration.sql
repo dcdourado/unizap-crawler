@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Subject" ALTER COLUMN "acronym" SET DATA TYPE VARCHAR(30);

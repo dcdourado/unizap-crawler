@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 
 import Services from "../services/index.js";
-import Persist from "../persist/index.js";
+import Database from "../database/index.js";
 import Helpers from "./helpers/index.js";
 
 const { Logger } = Services;
@@ -24,18 +24,18 @@ const command = async () => {
 
       return options.map((opt) => {
         const values = opt.textContent.split("-");
-        const courseAndGroup = values[0].split("/");
+        const courseAndInstitute = values[0].split("/");
 
         const code = +opt.value;
-        const name = (courseAndGroup[0] || "").trim();
-        const group = (courseAndGroup[1] || "").trim();
+        const name = (courseAndInstitute[0] || "").trim();
+        const institute = (courseAndInstitute[1] || "").trim();
         const city = (values[1] || "").trim();
         const type = (values[2] || "").trim();
 
-        return { code, name, group, city, type };
+        return { code, name, institute, city, type };
       });
     });
-    courses.shift(); // Ignore value 0 (select option)
+    updatedCourses.shift(); // Ignore value 0 (select option)
     Logger.info("Courses retrieved successfully");
 
     courses = updatedCourses;
@@ -46,7 +46,7 @@ const command = async () => {
   await browser.close();
 
   try {
-    await Persist.courses(courses);
+    await Database.Courses.persist(courses);
   } catch (e) {
     Logger.error(e);
   }

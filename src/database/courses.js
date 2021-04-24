@@ -22,7 +22,7 @@ const persist = async (courses) => {
         create: {
           code: c.code,
           name: c.name,
-          group: c.group,
+          institute: c.institute,
           city: c.city,
           type: c.type,
         },
@@ -30,7 +30,7 @@ const persist = async (courses) => {
         update: {
           code: c.code,
           name: c.name,
-          group: c.group,
+          institute: c.institute,
           city: c.city,
           type: c.type,
         },
@@ -42,4 +42,21 @@ const persist = async (courses) => {
   return true;
 };
 
-export default persist;
+const findOldest = async () => {
+  Logger.info("Finding oldest course...");
+
+  return Client.course.findFirst({
+    orderBy: [
+      {
+        updatedAt: "asc",
+      },
+    ],
+  });
+};
+
+const Courses = {
+  persist,
+  findOldest,
+}
+
+export default Courses;

@@ -46,7 +46,7 @@ const command = async () => {
   await browser.close();
 
   try {
-    await Database.Courses.persist(courses);
+    await Database.Courses.upsert(courses);
   } catch (e) {
     Logger.error(e);
   }

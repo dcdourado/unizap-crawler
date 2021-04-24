@@ -3,11 +3,11 @@ import Client from "./client.js";
 
 const { Logger } = Services;
 
-const persist = async (courses) => {
-  Logger.info("Persisting courses...");
+const upsert = async (courses) => {
+  Logger.info("Upserting courses...");
 
   if (courses.length === 0) {
-    Logger.warn("Could not persist courses since it is an empty array");
+    Logger.warn("Could not upsert courses since it is an empty array");
 
     return false;
   }
@@ -37,7 +37,7 @@ const persist = async (courses) => {
       })
     )
   );
-  Logger.info("Courses persisted successfully");
+  Logger.info("Courses upserted successfully");
 
   return true;
 };
@@ -55,8 +55,8 @@ const findOldest = async () => {
 };
 
 const Courses = {
-  persist,
+  upsert,
   findOldest,
-}
+};
 
 export default Courses;

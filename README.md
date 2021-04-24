@@ -9,9 +9,9 @@ O projeto é composto por três frentes:
 
 - [Crawler](https://github.com/dcdourado/unizap-crawler)
 - Bot
-  - WhatsApp
+  - [WhatsApp](https://github.com/dcdourado/unizap-wa)
   - Telegram (pendente)
-- Prisma Schemas
+- [Prisma Schemas](https://github.com/dcdourado/unizap-prisma-schemas)
 
 ## Crawler
 O crawler tem por objetivo buscar todos cursos e discplinas disponíveis da Universidade, para conseguirmos ter as informações necessárias para gerenciamento dos grupos.

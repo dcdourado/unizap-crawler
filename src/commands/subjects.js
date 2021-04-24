@@ -10,13 +10,15 @@ const command = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
+  let subjects = [];
+
   try {
     const course = await Database.Courses.findOldest();
 
     await Helpers.login(page);
     await Helpers.curricularStructure(page, course);
 
-    const subjects = await page.$$eval(
+    subjects = await page.$$eval(
       "#relatorio > table > tbody > tr:nth-child(12) > td > table > tbody > tr",
       (trs) => {
         let period = -1; // Because it sums on first, so the starting value is zero;
@@ -51,13 +53,17 @@ const command = async () => {
           .filter((sub) => sub !== undefined);
       }
     );
-
-    Logger.table(subjects);
   } catch (e) {
     Logger.error(e);
   }
 
   await browser.close();
+
+  try {
+    await Database.Subjects.upsert(subjects);
+  } catch (e) {
+    Logger.error(e);
+  }
 };
 
 export default command;

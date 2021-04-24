@@ -11,6 +11,31 @@ const upsert = async (subjects) => {
 
     return false;
   }
+
+  await Promise.all(
+    subjects.map((s) =>
+      Client.subject.upsert({
+        where: {
+          acronym: s.acronym,
+        },
+
+        create: {
+          acronym: s.acronym,
+          name: s.name,
+          workload: s.workload,
+        },
+
+        update: {
+          acronym: s.acronym,
+          name: s.name,
+          workload: s.workload,
+        },
+      })
+    )
+  );
+  Logger.info("Subjects upserted successfully");
+
+  return true;
 };
 
 const Subjects = {

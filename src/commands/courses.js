@@ -1,8 +1,10 @@
 import puppeteer from "puppeteer";
 
-import Logger from "../logger.js";
+import Services from "../services/index.js";
 import Persist from "../persist/index.js";
 import Helpers from "./helpers/index.js";
+
+const { Logger } = Services;
 
 const command = async () => {
   const browser = await puppeteer.launch();

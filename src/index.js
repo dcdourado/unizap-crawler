@@ -2,9 +2,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import Logger from "./logger.js";
+import Services from "./services/index.js";
 import Commands from "./commands/index.js";
 import Client from "./persist/client.js";
+
+const { Logger } = Services;
 
 const args = process.argv;
 

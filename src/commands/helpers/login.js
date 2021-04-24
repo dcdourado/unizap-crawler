@@ -1,4 +1,6 @@
-import Logger from "../../logger.js";
+import Services from "../../services/index.js";
+
+const { Logger } = Services;
 
 const command = async (page) => {
   Logger.info(`Accessing ${process.env.SIGAA_LOGIN_URL}...`);

@@ -1,5 +1,7 @@
-import Logger from "../logger.js";
+import Services from "../services/index.js";
 import Client from "./client.js";
+
+const { Logger } = Services;
 
 const persist = async (courses) => {
   Logger.info("Persisting courses...");

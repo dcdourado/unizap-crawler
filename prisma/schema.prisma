@@ -20,3 +20,12 @@ model Course {
   city      String   @db.VarChar(50)
   type      String   @db.VarChar(20)
 }
+
+model Subject {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  acronym   String   @unique @db.VarChar(10)
+  name      String   @db.VarChar(255)
+  workload  Int
+}

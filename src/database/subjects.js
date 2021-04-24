@@ -9,10 +9,10 @@ const upsert = async (subjects) => {
   if (subjects.length === 0) {
     Logger.warn("Could not upsert subjects since it is an empty array");
 
-    return false;
+    return [];
   }
 
-  await Promise.all(
+  const result = await Promise.all(
     subjects.map((s) =>
       Client.subject.upsert({
         where: {
@@ -35,7 +35,7 @@ const upsert = async (subjects) => {
   );
   Logger.info("Subjects upserted successfully");
 
-  return true;
+  return result;
 };
 
 const Subjects = {

@@ -35,10 +35,9 @@ const command = async () => {
         return { code, name, institute, city, type };
       });
     });
-    updatedCourses.shift(); // Ignore value 0 (select option)
     Logger.info("Courses retrieved successfully");
 
-    courses = updatedCourses;
+    courses = updatedCourses.filter((uC) => uC.city === "Itajubá");
   } catch (e) {
     Logger.error(e);
   }

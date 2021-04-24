@@ -10,11 +10,22 @@ const command = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
+  let course;
   let subjects = [];
 
   try {
-    const course = await Database.Courses.findOldest();
+    course = await Database.Courses.findOldest();
+  } catch (e) {
+    Logger.error(e);
+  }
 
+  if (course === undefined) {
+    Logger.warn("Could not fetch oldest course");
+  } else {
+    Logger.info(`Found ${course.name} course`);
+  }
+
+  try {
     await Helpers.login(page);
     await Helpers.curricularStructure(page, course);
 
@@ -60,7 +71,28 @@ const command = async () => {
   await browser.close();
 
   try {
-    await Database.Subjects.upsert(subjects);
+    const insertedSubjects = await Database.Subjects.upsert(subjects);
+
+    const courseSubjects = insertedSubjects
+      .map((iS) => {
+        const relatedSubject = subjects.find((s) => s.acronym === iS.acronym);
+
+        if (relatedSubject === undefined) {
+          Logger.warn(
+            `Could not find a subject inside 'insertedSubjects' with acronym ${iS.acronym}`
+          );
+
+          return;
+        }
+
+        return {
+          ...iS,
+          period: relatedSubject.period,
+        };
+      })
+      .filter((pS) => pS !== undefined);
+
+    await Database.Courses.syncSubjects(course, courseSubjects);
   } catch (e) {
     Logger.error(e);
   }

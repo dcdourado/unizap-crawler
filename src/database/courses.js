@@ -9,10 +9,10 @@ const upsert = async (courses) => {
   if (courses.length === 0) {
     Logger.warn("Could not upsert courses since it is an empty array");
 
-    return false;
+    return [];
   }
 
-  await Promise.all(
+  const result = await Promise.all(
     courses.map((c) =>
       Client.course.upsert({
         where: {
@@ -39,7 +39,7 @@ const upsert = async (courses) => {
   );
   Logger.info("Courses upserted successfully");
 
-  return true;
+  return result;
 };
 
 const findOldest = async () => {
@@ -54,9 +54,39 @@ const findOldest = async () => {
   });
 };
 
+const syncSubjects = async (course, subjects) => {
+  Logger.info(`Synching ${course.name} subjects...`);
+
+  const connectedSubjects = subjects.map((s) => ({
+    where: { courseId_subjectId: { courseId: course.id, subjectId: s.id } },
+    create: {
+      period: s.period,
+      subject: {
+        connect: {
+          id: s.id,
+        },
+      },
+    },
+  }));
+
+  return Client.course.update({
+    where: {
+      id: course.id,
+    },
+
+    data: {
+      updatedAt: new Date(),
+      subjects: {
+        connectOrCreate: connectedSubjects,
+      },
+    },
+  });
+};
+
 const Courses = {
   upsert,
   findOldest,
+  syncSubjects,
 };
 
 export default Courses;

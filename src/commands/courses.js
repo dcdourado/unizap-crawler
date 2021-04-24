@@ -1,18 +1,21 @@
 import puppeteer from "puppeteer";
 
 import Logger from "../logger.js";
+import Persist from "../persist/index.js";
 import Helpers from "./helpers/index.js";
 
 const command = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
+  let courses = [];
+
   try {
     await Helpers.login(page);
     await Helpers.curricularStructure(page);
 
     Logger.info("Retrieving couses...");
-    const courses = await page.evaluate(() => {
+    const updatedCourses = await page.evaluate(() => {
       const options = Array.from(
         document.querySelectorAll("[name='busca:curso'] > option")
       );
@@ -21,24 +24,32 @@ const command = async () => {
         const values = opt.textContent.split("-");
         const courseAndGroup = values[0].split("/");
 
-        const id = +opt.value;
+        const code = +opt.value;
         const name = (courseAndGroup[0] || "").trim();
         const group = (courseAndGroup[1] || "").trim();
         const city = (values[1] || "").trim();
         const type = (values[2] || "").trim();
 
-        return { id, name, group, city, type };
+        return { code, name, group, city, type };
       });
     });
     courses.shift(); // Ignore value 0 (select option)
     Logger.info("Courses retrieved successfully");
 
-    // Logger.log(courses);
+    courses = updatedCourses;
   } catch (e) {
     Logger.error(e);
   }
 
   await browser.close();
+
+  try {
+    await Persist.courses(courses);
+  } catch (e) {
+    Logger.error(e);
+  }
+
+  return true;
 };
 
 export default command;

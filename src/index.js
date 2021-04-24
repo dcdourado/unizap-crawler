@@ -4,6 +4,7 @@ dotenv.config();
 
 import Logger from "./logger.js";
 import Commands from "./commands/index.js";
+import Client from "./persist/client.js";
 
 const args = process.argv;
 
@@ -19,4 +20,6 @@ args.shift();
     default:
       Logger.warn(`Unknown argument: ${arg}`);
   }
+
+  Client.$disconnect();
 })();
